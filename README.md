@@ -4,6 +4,22 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 2
+
+**Side effects** are literally everything that affects the world outside of a function - a browser, outer variables, a server, etc.
+
+```js
+function noSideEffects(a, b) {
+  return a + b
+}
+
+function sideEffects(sideEffect) {
+  console.log(sideEffect)
+}
+```
+
+<br />
+
 ## Day 1
 
 **Imperative code** - you tell the machine **HOW** to execute your code step by step:
