@@ -4,6 +4,25 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 3
+
+**Hashchange event:**
+
+```js
+window.addEventLitener('hashchange', callback)
+```
+
+The event is fired when the url hash part changes. For example, if you have two links on the page:
+
+```html
+<a href='#12345'>hash 1</a>
+<a href='#67890'>hash 2</a>
+```
+
+clicking first one will add '/#12345' to the current url. That's how we can use 'native' version of router params and, let's say, make a request using **location.hash** property inside of a callback to get a current hash.
+
+<br />
+
 ## Day 2
 
 **Side effects** are literally everything that affects the world outside of a function - a browser, outer variables, a server, etc.
