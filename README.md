@@ -4,6 +4,28 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 4
+
+To stop trying on a request after N seconds, create a helper function:
+
+```js
+function timer(s) {
+  return new Promise((_, reject) => {
+    setTimeout(() => {
+      reject(new Error(`Request took too long. Quit after ${s} seconds.`))
+    }, s * 1000)
+  })
+}
+```
+
+then use Promise.race() to get the first resolved responce:
+
+```js
+const res = await Promise.race([fetchFuncion, timer(5)])
+```
+
+<br />
+
 ## Day 3
 
 **Hashchange event:**
