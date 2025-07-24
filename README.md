@@ -4,6 +4,31 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 5
+
+There is an ```<use>``` html element that duplicates svg nodes to somewhere else. Can be used
+within one ```<svg>``` element:
+
+```html
+<svg viewBox='0 0 30 10' xmlns='http://www.w3.org/2000/svg'>
+  <circle id='my-circle' cx='5' cy='5' r='4' stroke='blue' />
+  <use href='#my-circle' x='10' fill='blue' />
+  <use href='#my-circle' x='20' fill='white' stroke='red' />
+</svg>
+```
+
+of to represent an external file (from public directory or from external link):
+
+```html
+<svg width="24" height="24">
+  <use href="/icons.svg#circle-icon" />
+</svg>
+```
+
+Note that it can be CORS and MIME type issues when uploaded form external url, otherwise browser support is good. Read more on [MDN's <use> documentation](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use).
+
+<br />
+
 ## Day 4
 
 To stop trying on a request after N seconds, create a helper function:
