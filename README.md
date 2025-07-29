@@ -6,14 +6,14 @@ Coding diary with the most interesting things I learn each day.
 
 ## Day 6
 
-Implementin a vanilla analogy to a 'virtual dom' - something that updates only textNodes, 
-if thay have changed. First, generate a new markup string:
+Implementing a vanilla analogy to a 'virtual dom' - something that updates only textNodes,
+if they have changed. First, generate a new markup string:
 
 ```js
 const newMarkup = `
-  <div class='some-class'>
+  <div class='some-class' id='some-id'>
     <div>Some sibling</div>
-    <div id='some-id'>
+    <div class='some-class'>
       <div>hey, I won't be changed and re-rendered!</div>
       <div>And I will be, as I have some new updated text inside ${someText}</div>
     </div>
@@ -32,8 +32,8 @@ const newElemArray = Array.from(newElemDOM.querySelectorAll('*'))
 const prevElemArray = Array.from(prevElemDOM.querySelectorAll('*'))
 ```
 
-Now let's derive only the elements with a change in text nodes, but not their parents: 
-```isEaqualNode()``` returns true is anything (children or text nodes) has changed, so we need one extra check: 
+Now let's derive only the elements with a change in text nodes, but not their parents:
+`isEaqualNode()` returns true is anything (children or text nodes) has changed, so we need one extra check:
 
 ```js
 newElemArray.forEach((el, i) => {
@@ -44,7 +44,8 @@ newElemArray.forEach((el, i) => {
   }
 })
 ```
-```elem.nodeValue()``` returns ```null``` if that's a real element, and a text - if element is a text node.
+
+`elem.nodeValue()` returns `null` if that's a real element, and a text - if element is a text node.
 Be carefull with comments or text nodes that are sibblings of DOM elements, it requires some extra work!
 Read more about nodeValue on [MDN.](https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeValue)
 
@@ -52,8 +53,8 @@ Read more about nodeValue on [MDN.](https://developer.mozilla.org/en-US/docs/Web
 
 ## Day 5
 
-There is an ```<use>``` html element that duplicates svg nodes to somewhere else. Can be used
-within one ```<svg>``` element:
+There is an `<use>` html element that duplicates svg nodes to somewhere else. Can be used
+within one `<svg>` element:
 
 ```html
 <svg viewBox='0 0 30 10' xmlns='http://www.w3.org/2000/svg'>
@@ -66,8 +67,8 @@ within one ```<svg>``` element:
 of to represent an external file (from public directory or from external link):
 
 ```html
-<svg width="24" height="24">
-  <use href="/icons.svg#circle-icon" />
+<svg width='24' height='24'>
+  <use href='/icons.svg#circle-icon' />
 </svg>
 ```
 
@@ -150,6 +151,6 @@ for (let i = 0; i < arr.length; i++) {
 **Declerative code** - you tell **WHAT** you want to achive, and let computer handle the rest
 
 ```js
-const arr = [1, 2, 3, 4];
-let doubleArr = arr.map((el) => el * 2);
+const arr = [1, 2, 3, 4]
+const doubleArr = arr.map((el) => el * 2)
 ```
