@@ -4,6 +4,59 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 7
+
+[View Transition API](https://developer.chrome.com/docs/web-platform/view-transitions/)
+
+New native way to build a transitions between two html documents (pages) without building SPA.
+
+```css
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: fade 0.3s ease both;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+```
+
+For example building a thumbnails for shoping cards you can do:
+```html
+<a href='/product/red-shoes'>
+  <img src='/images/red-shoes-thumb.jpg' style='view-transition-name: product-image;' />
+</a>
+```
+
+And the product detail page:
+```html
+<img src='/images/red-shoes-large.jpg' style='view-transition-name: product-image;' />
+```
+The browser matches and animates the elements between navigations. 
+
+Also, there is [Speculation Rule](https://developer.chrome.com/docs/web-platform/implementing-speculation-rules/). This lets the browser preload or prerender full pages based on user behaviour – like hovering or touching a link – before they click.
+
+```html
+<script type='speculationrules'>
+{
+  'prerender': [
+    {
+      'where': {
+        'selector_matches': 'a'
+      }
+    }
+  ]
+}
+</script>
+```
+
+<br />
+
 ## Day 6
 
 Implementing a vanilla analogy to a 'virtual dom' - something that updates only textNodes,
