@@ -4,6 +4,22 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 8
+
+React performance tip #1:
+
+Wrap a function into an anonymous function inside of a useState()
+```js
+const [items, setItems] = useState(() => generateItems())
+```
+because this would call ```generateItems()``` on every re-render, even though the value
+returned from this function will be ignored.
+```js
+const [items, setItems] = useState(generateItems())
+```
+
+<br />
+
 ## Day 7
 
 [View Transition API](https://developer.chrome.com/docs/web-platform/view-transitions/)
