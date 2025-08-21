@@ -4,6 +4,23 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 9
+
+```if (!canvas) return``` is a common boilerplate that does not really do anything - useEffect 
+ensures that by the time that it runs the jsx does render, so the canvas never be ```null```.
+
+```js
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    drawLine(ctx)
+  }, [])
+```
+it can be ```null``` in some complex cases (conditional rendering + dependency array is not empty, SSR hydration, portals, etc.), but not in a simple ```useEffect(() => {}, [])``` case.
+
+<br />
+
 ## Day 8
 
 React performance tip #1:
