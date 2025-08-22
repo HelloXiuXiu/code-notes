@@ -4,20 +4,49 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 10
+
+React performance tip #2:
+
+If you need some code to run on the very first render (before React commits to the DOM), but you want to avoid `useEffect` or `useLayoutEffect`for some reason, you can use this `useRef` hack:
+
+```jsx
+function Component() {
+  const ref = useRef(true)
+
+  if (ref.current) {
+    // run some logic here ...
+    // ...
+    ref.current = false
+  }
+
+  return (
+    <div>...</div>
+  )
+}
+```
+
+Note: if you need to manipulate real DOM nodes - you need `useEffect` or `useLayoutEffect`. Otherwise it’s used here just to detect the very first render of this component.
+
+Many libs use this hack, so refusing to use it because it’s “hacky” doesn’t make much sense anyway.
+
+<br />
+
 ## Day 9
 
-```if (!canvas) return``` is a common boilerplate that does not really do anything - useEffect 
-ensures that by the time that it runs the jsx does render, so the canvas never be ```null```.
+`if (!canvas) return` is a common boilerplate that does not really do anything - useEffect
+ensures that by the time that it runs the jsx does render, so the canvas never be `null`.
 
 ```js
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    drawLine(ctx)
-  }, [])
+useEffect(() => {
+  const canvas = canvasRef.current
+  if (!canvas) return
+  const ctx = canvas.getContext('2d')
+  drawLine(ctx)
+}, [])
 ```
-it can be ```null``` in some complex cases (conditional rendering + dependency array is not empty, SSR hydration, portals, etc.), but not in a simple ```useEffect(() => {}, [])``` case.
+
+It can be `null` in some complex cases (conditional rendering + dependency array is not empty, SSR hydration, portals, etc.), but not in a simple `useEffect(() => {}, [])` case.
 
 <br />
 
@@ -26,11 +55,14 @@ it can be ```null``` in some complex cases (conditional rendering + dependency a
 React performance tip #1:
 
 Wrap a function into an anonymous function inside of a useState()
+
 ```js
 const [items, setItems] = useState(() => generateItems())
 ```
-because this would call ```generateItems()``` on every re-render, even though the value
+
+because this would call `generateItems()` on every re-render, even though the value
 returned from this function will be ignored.
+
 ```js
 const [items, setItems] = useState(generateItems())
 ```
@@ -55,11 +87,12 @@ New native way to build a transitions between two html documents (pages) without
 
 @keyframes fade {
   from { opacity: 0; }
-  to   { opacity: 1; }
+  to { opacity: 1; }
 }
 ```
 
 For example building a thumbnails for shoping cards you can do:
+
 ```html
 <a href='/product/red-shoes'>
   <img src='/images/red-shoes-thumb.jpg' style='view-transition-name: product-image;' />
@@ -67,10 +100,12 @@ For example building a thumbnails for shoping cards you can do:
 ```
 
 And the product detail page:
+
 ```html
 <img src='/images/red-shoes-large.jpg' style='view-transition-name: product-image;' />
 ```
-The browser matches and animates the elements between navigations. 
+
+The browser matches and animates the elements between navigations.
 
 Also, there is [Speculation Rule](https://developer.chrome.com/docs/web-platform/implementing-speculation-rules/). This lets the browser preload or prerender full pages based on user behaviour – like hovering or touching a link – before they click.
 
@@ -224,11 +259,11 @@ function sideEffects(sideEffect) {
 **Imperative code** - you tell the machine **HOW** to execute your code step by step:
 
 ```js
-const arr = [1, 2, 3, 4];
-let doubleArr = [];
+const arr = [1, 2, 3, 4]
+let doubleArr = []
 
 for (let i = 0; i < arr.length; i++) {
-  doubleArr[i] = arr[i] * 2;
+  doubleArr[i] = arr[i] * 2
 }
 ```
 
