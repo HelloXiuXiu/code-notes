@@ -4,6 +4,22 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 11 
+
+React performance tip #3:
+
+React memo has a second parameter - the comparison function. It case you want to have some props to be (not-memoized) objects - you can use it to trigger the update only when some particular parts of this objects change.
+
+```jsx
+memo(Component, ((prev, next) => prev.x === next.x))
+```
+
+In fact, memo works with no-primitive props, if they are mutated during an update, but not re-created, which is possible with immer.
+
+Some people consider it to be hacky, and confusing for the future maintainers trying to scale the app. So probably it’s more explicit to just use memoized objects. Yet, in case of really large objects, or not mutable states, it can be a more performant solution.
+
+<br />
+
 ## Day 10
 
 React performance tip #2:
