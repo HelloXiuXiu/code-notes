@@ -4,7 +4,54 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
-## Day 11 
+## Day 12
+
+React performance tip #4:
+
+Context re-renders every single component subscribed to it, if the value (`{ items, dispatch }`) is not primitive
+
+```jsx
+export const ItemsContext = createContext({})
+
+const ItemsProvider = ({ children }) => {
+  const [items, dispatch] = useReducer(reducer, getInitialItems())
+
+  return (
+    <ItemsContext.Provider value={{ items, dispatch }}>
+      {children}
+    </ItemsContext.Provider>
+  );
+};
+
+export default ItemsProvider
+```
+
+To stop component that subscribed to `dispatch` only from re-rendering you can split the context into two:
+
+```jsx
+export const ItemsContext = createContext({})
+export const ActionsContext = createContext({})
+
+const ItemsProvider = ({ children }) => {
+  const [items, dispatch] = useReducer(reducer, getInitialItems())
+
+  return (
+    <ActionsContext.Provider value={dispatch}>
+      <ItemsContext.Provider value={items}>
+        {children}
+      </ItemsContext.Provider>
+    </ActionsContext.Provider>
+  );
+};
+
+export default ItemsProvider
+```
+
+Order matters - the outer context never changes. You can create more than two contexts that way.
+
+<br />
+
+## Day 11
 
 React performance tip #3:
 
