@@ -4,6 +4,42 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 13
+
+Children (`ExpensiveComponent`) belongs to the component where they are declared (`App`), and won't be re-rendered where they are used, even if  `Component` gets re-rendered.
+
+```jsx
+const App = () => {
+ // ... 
+
+  return (
+    <div>
+      {/* ... */}
+      <Component>
+        <ExpensiveComponent />
+      </Component>
+    </div>
+  )
+}
+
+const Component = ({ children }) => {
+  // ... some states here
+
+  return (
+    <div>
+      {/* ... */}
+      {children}
+    </div>
+  )
+}
+```
+
+We could achieve the same memoizing `ExpensiveComponent` and using it inside of `Component`, but not in `App`, but it's better to solve it architecturally only, as it's free-ish.
+
+If `App` re-renders - `ExpensiveComponent` will be re-rendered, even if `Component` is memoized. Reason - props changes (children is a prop).
+
+<br />
+
 ## Day 12
 
 React performance tip #4:
@@ -20,8 +56,8 @@ const ItemsProvider = ({ children }) => {
     <ItemsContext.Provider value={{ items, dispatch }}>
       {children}
     </ItemsContext.Provider>
-  );
-};
+  )
+}
 
 export default ItemsProvider
 ```
