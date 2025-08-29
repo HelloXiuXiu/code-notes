@@ -4,6 +4,23 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 14
+
+If you create `{children}` of inside of an array that is changing - they are going to be new every time (even thought we did not change this particular item). 
+
+```jsx
+{users.map((user) => (
+  <User key={user.id} user={user}>
+    <button onClick={() => removeUser(user.id)}>
+      Remove
+    </button>
+  </User>
+))}
+```
+In this example if we delete one user - all of them will be updated, even if they are wrapped into memo. Reason - prop `children` changes.
+
+<br />
+
 ## Day 13
 
 Children (`ExpensiveComponent`) belongs to the component where they are declared (`App`), and won't be re-rendered where they are used, even if  `Component` gets re-rendered.
