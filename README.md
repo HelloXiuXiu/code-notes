@@ -4,6 +4,29 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 15
+
+React Query (TanStack Query) have a plugin to automatically sync your cached data with localStorage, sessionStorage or IndexedDB (so colled persisters). More in [docs.](https://tanstack.com/query/v4/docs/framework/react/plugins/persistQueryClient)
+
+```js
+import { QueryClient } from '@tanstack/react-query'
+import { persistQueryClient } from '@tanstack/query-persist-client-core'
+import { createSyncStoragePersister } from '@tanstack/query-persist-client-sync-storage'
+
+const queryClient = new QueryClient()
+
+const persister = createSyncStoragePersister({
+  storage: window.localStorage, // could be sessionStorage or IndexedDB
+})
+
+persistQueryClient({
+  queryClient,
+  persister,
+})
+```
+
+<br />
+
 ## Day 14
 
 If you create `{children}` of inside of an array that is changing - they are going to be new every time (even thought we did not change this particular item). 
