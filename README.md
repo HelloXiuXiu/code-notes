@@ -4,6 +4,55 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 16
+
+To clear all event listeners at once in React you can use Abort controller.
+So instead of this:
+
+```js
+useEffect(() => {
+  const a = () => {}
+  const b = () => {}
+  const c = () => {}
+
+  window.addEventLitener('drag', a)
+  window.addEventLitener('dragstart', b)
+  window.addEventLitener('dragend', c)
+
+  return () => {
+    window.removeEventLitener('drag', a)
+    window.removeEventLitener('dragstart', b)
+    window.removeEventLitener('dragend', c)
+  }
+
+}, [])
+```
+
+you can have this:
+
+```js
+useEffect(() => {
+  const a = () => {}
+  const b = () => {}
+  const c = () => {}
+  const controller = new AbortController()
+
+  // or distract the signal directly
+  const signal = controller.signal
+
+  window.addEventLitener('drag', a, controller)
+  window.addEventLitener('dragstart', b, controller)
+  window.addEventLitener('dragend', c, { signal })
+
+  return () => {
+    controller.abort()
+  }
+
+}, [])
+```
+
+<br />
+
 ## Day 15
 
 React Query (TanStack Query) have a plugin to automatically sync your cached data with localStorage, sessionStorage or IndexedDB (so colled persisters). More in [docs.](https://tanstack.com/query/v4/docs/framework/react/plugins/persistQueryClient)
