@@ -4,6 +4,62 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 17
+
+Code Web Vitals - google performance metrics for first content load that affects SEO.
+
+**1. Largest Contentful Paint (LCP)**
+
+![LCP](./assets/day-17-lcp.jpg)
+(DCL - DomContentLoaded, L - Load)
+
+Measures how fast your website visibly loads by checking how fast the **largest DOM element** loads. <br />
+This largest DOM element **can be**:
+  - `<img>`
+  - `<video>`
+  - `css: background-image` 
+  - `text elements`
+
+It **cannot be**:
+  - `opacity: 0;`
+  - `size 100% (it should be less, otherwise google thinks it's a background)`
+  - `image entropy < 0.05 (blurry preload images)`
+
+**Image Entropy** is calculated:
+<br />
+`Image Entropy = unencoded size in bytes / full size in px`
+
+for example: Image 3.9MB (31,101,368b) 2800x1200px (3,360,000px):
+`31,101,368 / 3,360,000 = 9.39`
+
+Here is a snyppet to calculate the entropy of all images on the page:
+```js
+console.table(
+  [...document.images].map((img) => {
+    const entry = performance.getEntriesByName(img.currentSrc)[0]
+    const bytes = (entry?.encodedBodySize * 8)
+    const pixels = (img.width * img.height)
+    return { src: img.currentSrc, bytes, pixels, entropy: (bytes / pixels) }
+  })
+)
+```
+
+![LCP score](./assets/day-17-score.jpg)
+This is how fast it should be. 
+
+The calculation stops after User's first interaction (or before all content is checked).<br />
+for example:
+```less
+0 ms   navigation start
+800 ms hero image renders  → LCP candidate #1
+1200 ms text block grows   → LCP candidate #2
+1500 ms user clicks        → LCP is finalized
+2200 ms large image loads  → IGNORED
+```
+That means early clicks can “cheat” LCPm, freeze LCP early and make metrics look better than UX really is. But irl this cases most likely be average out.
+
+<br />
+
 ## Day 16
 
 To clear all event listeners at once in React you can use Abort controller.
