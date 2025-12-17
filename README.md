@@ -4,6 +4,36 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 18
+
+**2. Cumulative Layout Shift (CLS)**
+
+Measures how predictably elements load. It does not count shifts after user actions 
+(within next 500ms from the action start). <br />
+`CLS = Impact fraction x Distance fraction`
+
+Impact fraction - part of the viewport affected (vertically and horisontally). For examle,
+the viewport height is 768px, 60px header stays at the top, but all the content beneath shifts: <br />
+`Impact fraction = (768px - 60px) / 768px = 0.922` <br />
+
+Part of the viewport may change if user scrolls. So CLS depands on User behaviour and what was in the viewport
+when shift(s) happen (meaning that CLS will be a different value for every session).
+
+Distance fraction is how far the content moves. Let's say, we added a banner 180px height beneath this 60px header - the Distance fraction is `180px / 768px = 0.236`.
+
+So the total score for this exapmle where content moved onlu down: <br />
+`0.922 x 0.236 = 0.215`.
+
+If there are also side shifts - the calculation is getting much more complex.
+
+![CLS](./assets/day-18-cls.jpg)
+
+**Cumulative** here meant that the total score of the page will be a sum of all the shifts.
+
+Possible fix for LS: sceletons or using Canvas (content may change inside if the canvas, that doesn't count untill the canvas size stays the same).
+
+<br />
+
 ## Day 17
 
 Code Web Vitals - google performance metrics for first content load that affects SEO.
@@ -57,6 +87,8 @@ for example:
 2200 ms large image loads  → IGNORED
 ```
 That means early clicks can “cheat” LCPm, freeze LCP early and make metrics look better than UX really is. But irl this cases most likely be average out.
+
+**2. Largest Contentful Paint (LCP)**
 
 <br />
 
