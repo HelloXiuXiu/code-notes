@@ -4,6 +4,14 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 21
+
+Performance API vs. PerformanceObserver API
+
+The main issue of [Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance) is that it takes some resourses by itself, slowing down the real results of the measurment, whereas [PerformanceObserver API](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver) fulfills its tasks while the browser is idle.
+
+<br />
+
 ## Day 20
 
 Checking all Layout shifts:
