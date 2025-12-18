@@ -4,6 +4,27 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 19
+
+**3. Interaction to Next Paint (INP)**
+
+![INP](./assets/day-19-1.jpg)
+
+Measures how fast browser can paint a frame after an interaction, highly depands on device capacity.
+Interatcions are: **click, drag, touch, kaypress,** but not **scroll.**
+
+![INP Score](./assets/day-19-2.jpg)
+
+The score would be **the worst** value among all the measurments, meaning:
+  - we don't know the final score untill it's over
+  - there can be no INP at all, if there are no interactions
+
+To improve the score you can either **do less** or **paint faster**.
+
+To collect this data youself use [Beacon API](https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API).
+
+<br />
+
 ## Day 18
 
 **2. Cumulative Layout Shift (CLS)**
