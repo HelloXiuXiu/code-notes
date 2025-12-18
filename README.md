@@ -4,6 +4,24 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 20
+
+Checking all Layout shifts:
+
+```js
+const observer = new PerformanceObserver(list => {
+  list.getEntries().forEach(entry => {
+    console.log(entry)
+  })
+})
+
+observer.observe({ type: 'layout-shift', buffered: true })
+```
+
+`buffered: true` stands for showing all layout shifts that ever happened on this page even before this timepoint.
+
+<br />
+
 ## Day 19
 
 **3. Interaction to Next Paint (INP)**
@@ -164,7 +182,7 @@ useEffect(() => {
 
 ## Day 15
 
-React Query (TanStack Query) have a plugin to automatically sync your cached data with localStorage, sessionStorage or IndexedDB (so colled persisters). More in [docs.](https://tanstack.com/query/v4/docs/framework/react/plugins/persistQueryClient)
+React Query (TanStack Query) have a plugin to automatically sync your cached data with localStorage, sessionStorage or IndexedDB (so called persisters). More in [docs.](https://tanstack.com/query/v4/docs/framework/react/plugins/persistQueryClient)
 
 ```js
 import { QueryClient } from '@tanstack/react-query'
