@@ -4,6 +4,16 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 22
+
+[Google PageSpeed](https://pagespeed.web.dev/) is actually showing not only a local report (same as lighthouse in your dev tools), but some real field data as well. 
+
+There is another [tool](https://requestmetrics.com/resources/tools/crux/) to check field data. Also, [webpagetest.org](https://www.webpagetest.org/) is a nice tool to run some tests on real devises for a particular location, internet connection, etc.
+
+All this data can also be used in competitor analysis.
+
+<br />
+
 ## Day 21
 
 Performance API vs. PerformanceObserver API
