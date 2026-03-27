@@ -4,6 +4,139 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 28
+
+```js
+useEffect(() => {
+  // ...
+  observer.observe(someNodeRef.current)
+
+  return () => {
+    observer.disconnect()
+  }
+}, [])
+```
+
+You can `unobserve` an observer and than pass the `node`, but you also can just say `disconnect`, which cancels everything 
+
+<br />
+
+## Day 27
+
+To generate a random id you can use `crypto` web api - which is not related to crypto currency btw, it's more like cryptography - and it's a bit better than `Math.random()`
+
+```js
+const id = crypto.randomUUID()
+```
+
+<br />
+
+## Day 26
+
+```jsx
+const INPUT_NAME = 'shape'
+
+function handleSubmit(e) {
+  e.preventDefault()
+  console.log(e.target.elements[INPUT_NAME].value)
+}
+
+function App() {
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <input
+          id="shape-circle"
+          type="radio"
+          name={INPUT_NAME}
+          value="shape-circle"
+        />
+        <label htmlFor="shape-circle">Circles</label>
+      </div>
+
+      <div>
+        <input
+          id="shape-polygon"
+          type="radio"
+          name={INPUT_NAME}
+          value="shape-polygon"
+        />
+        <label htmlFor="shape-polygon">Polygons</label>
+      </div>
+      <button type="submit">submit</button>
+    </form>
+  )
+}
+```
+
+if you use the same `name` in several inputs within one from - only one can be selected at a time.
+that's an easy and nice way to create a toggle.
+<br />
+
+## Day 25
+
+```jsx
+<select
+  value={country}
+  onChange={(e) => setCountry(e.target.value)}
+  name="country"
+  id="country"
+  required
+>
+  <option value=""> — select country — </option>
+
+  <optgroup label="countries">
+    {countries.map(([id, label]) => {
+        return (
+          <option value={id} key={id}>
+            {label}
+          </option>
+        )
+      })
+    }
+  </optgroup>
+<select>
+```
+
+`<optgroup>` visially seporates the group from a default value
+
+<br />
+
+## Day 24
+
+That's how you can handle 'default' option in a select:
+
+```jsx
+<select
+  value={country}
+  onChange={(e) => setCountry(e.target.value)}
+  name="country"
+  id="country"
+  required
+>
+  <option value=""> — select country — </option>
+  {countries.map(([id, label]) => {
+      return (
+        <option value={id} key={id}>
+          {label}
+        </option>
+      )
+    })
+  }
+<select>
+```
+
+`<select>` should have `required` attribute to ignore `value=""` selection.
+
+<br />
+
+## Day 23
+
+key in React can be **NOT unique** within one component/page, but not within one map cicle
+
+<br />
+
+
 ## Day 22
 
 [Google PageSpeed](https://pagespeed.web.dev/) is actually showing not only a local report (same as lighthouse in your dev tools), but some real field data as well. 
