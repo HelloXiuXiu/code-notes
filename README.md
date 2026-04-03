@@ -4,6 +4,49 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 31
+
+To update all npm packages, first check what updates are available and update package.json:
+
+```bash
+npm install -g npm-check-updates
+ncu -u
+```
+
+Then remove all existing modules and re-install the dependencies.
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+Resolve all conflicts, if any, and the update is ready.
+
+<br />
+
+## Day 30
+
+You can pass a function to React `ref`, and it's going to have an access to this element:
+
+```jsx
+ref={(elem) => { ... }}
+```
+The function will run every time the element is created (each re-render of this piece of jsx)
+
+<br />
+
+## Day 29
+
+I've always felt weird doing:
+
+```jsx
+const json = await response.json()
+```
+
+The reason why result is awaited here is the case it's being streamed.
+
+<br />
+
 ## Day 28
 
 ```js
