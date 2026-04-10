@@ -4,6 +4,30 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 32
+
+React ref can be set dynamically, but it may lead to confusion:
+
+```jsx
+function App() {
+  const ref = useRef(null)
+  const [state, setState] = useState(1)
+
+  useEffect(() => {
+    setState(2)
+  }, [])
+
+  console.log(ref.current?.textContent)
+
+  return <div>
+    <div ref={state === 1 ? ref : null}>1</div>
+    <div ref={state === 2 ? ref : null}>2</div>
+  </div>
+}
+```
+
+in console you'll see `undefined 1` because the second render doesn't happen yet, so ref is not updated to another node.
+
 ## Day 31
 
 To update all npm packages, first check what updates are available and update package.json:
