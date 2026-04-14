@@ -4,6 +4,27 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 34
+
+If we have more than one error boundaries – the outer one will catch the Error (boundary-1).
+Second one (boundary-2) won't be activated at all.
+
+```jsx
+function A() {
+  return <ErrorBoundary name="boundary-2">{renderWithError()}</ErrorBoundary>
+}
+
+function App() {
+  return (
+    <ErrorBoundary name="boundary-1">
+      <A />
+    </ErrorBoundary>
+  )
+}
+```
+
+<br />
+
 ## Day 33
 
 React dependencies are evaluated on go, but will be executed with the latest values:
