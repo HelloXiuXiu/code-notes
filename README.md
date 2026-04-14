@@ -4,6 +4,54 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 33
+
+React dependencies are evaluated on go, but will be executed with the latest values:
+
+```jsx
+function App() {
+  const ref = useRef()
+
+  useEffect(() => {
+    console.log(!!ref.current) // true, as render already happened
+  }, [ref.current]) // undefined 
+
+  return (
+    <div ref={ref}>1</div>
+  )
+}
+
+// true
+```
+
+...but on the next render we'll see `console.log(!!ref.current)` executed again,
+because `ref.current` in dependency array won't be `undefined` anymore. The Effect with ref in dependencies does not trigger the second render itself though.
+
+```jsx
+function App() {
+  const ref = useRef()
+  const [state, setState] = useState(0)
+
+  useEffect(() => {
+    console.log(!!ref.current) // executed two times (!)
+  }, [ref.current])
+
+  useEffect(() => {
+    // triger one more render
+    setState(state => state + 1)
+  }, [])
+
+  return (
+    <div ref={ref}>1</div>
+  )
+}
+
+// true
+// true
+```
+
+<br />
+
 ## Day 32
 
 React ref can be set dynamically, but it may lead to confusion:
