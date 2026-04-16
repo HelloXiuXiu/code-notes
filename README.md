@@ -4,6 +4,54 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 35
+
+Rendering sequence:<br />
+parent body (1)<br />
+child body<br />
+child effect (5)<br />
+parent effect (2, 4)<br />
+<br />
+[state updates]<br />
+<br />
+parent body (1)<br />
+child body<br />
+child effect cleanup (6)<br />
+parent effect clean up (3)<br />
+child effect (5)<br />
+parent effect (2)<br />
+
+
+```js
+function App() {
+  const [count, setCount] = useState(1)
+  console.log(1)
+  useEffect(() => {
+    console.log(2)
+    return () => {
+      console.log(3)
+    }
+  }, [count])
+
+  useEffect(() => {
+    console.log(4)
+    setCount(count => count + 1)
+  }, [])
+  return <Child count={count} />
+}
+
+function Child({ count }) {
+  useEffect(() => {
+    console.log(5)
+    return () => {
+      console.log(6)
+    }
+  }, [count])
+
+  return null
+}
+```
+
 ## Day 34
 
 If we have more than one error boundaries – the outer one will catch the Error (boundary-1).
