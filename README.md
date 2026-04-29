@@ -4,6 +4,33 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 36
+
+Every time we set cookie, we need to provide secure options:
+
+```js
+cookiesToSet.forEach(({ name, value, options }) =>
+  cookieStore.set(name, value, {
+    ...options,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax'
+  })
+)
+```
+
+`httpOnly: true` - makes cookies being not accessible from JavaScript (meaning any malware working on the client cannot do something like document.cookies and then send it to their own server)
+
+<br />
+
+`secure: true` - send only via https (for dev mode we use http://localhost:...)
+
+<br />
+
+`sameSite` - defines with which requests we allow to send cookies. `strict` is the most secure, cookies can be sent only navigating within the site. `lax` allows to use auth providers (aka send cookies from and to other sites), but don't send them with iframes and fetch. `none` sends cookies every request.
+
+<br />
+
 ## Day 35
 
 Rendering sequence:<br />
