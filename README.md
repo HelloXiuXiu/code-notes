@@ -4,6 +4,23 @@ Coding diary with the most interesting things I learn each day.
 <br />
 <br />
 
+## Day 37
+
+`revalidatePath` in Next.js app router kinda works without '/' at the beginning of the path,
+but it works inconsistently (race condition may introduce showing stale (cached) data).
+
+```js
+revalidatePath('somepage')
+```
+
+Always use:
+
+```js
+revalidatePath('/somepage')
+```
+
+<br />
+
 ## Day 36
 
 Every time we set cookie, we need to provide secure options:
